@@ -1,0 +1,50 @@
+﻿@model ProyectoAula4EmanuelGallego_SaraPineda.Models.tbAgua
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbAgua</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PromedioConsumo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PromedioConsumo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ConsumoActual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ConsumoActual)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PeriodoConsumo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PeriodoConsumo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbCliente.Cedula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbCliente.Cedula)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdAgua }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

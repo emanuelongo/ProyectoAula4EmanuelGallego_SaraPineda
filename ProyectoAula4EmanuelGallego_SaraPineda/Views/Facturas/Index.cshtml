@@ -1,0 +1,63 @@
+﻿@model IEnumerable<ProyectoAula4EmanuelGallego_SaraPineda.Models.tbFactura>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PagoAgua)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PagoEnergia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PagoTotal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbAgua.IdAgua)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbEnergia.IdEnergia)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tbPrecio.Servicio)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PagoAgua)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PagoEnergia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PagoTotal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbAgua.IdAgua)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbEnergia.IdEnergia)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tbPrecio.Servicio)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdFactura }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdFactura }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdFactura })
+        </td>
+    </tr>
+}
+
+</table>

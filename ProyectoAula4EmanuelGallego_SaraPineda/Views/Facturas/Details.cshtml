@@ -1,0 +1,66 @@
+﻿@model ProyectoAula4EmanuelGallego_SaraPineda.Models.tbFactura
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>tbFactura</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PagoAgua)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PagoAgua)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PagoEnergia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PagoEnergia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PagoTotal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PagoTotal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbAgua.IdAgua)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbAgua.IdAgua)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbEnergia.IdEnergia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbEnergia.IdEnergia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbPrecio.Servicio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.tbPrecio.Servicio)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdFactura }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

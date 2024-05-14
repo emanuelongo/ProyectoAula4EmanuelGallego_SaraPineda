@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="83d73c7d37bd45c1aae5848f2e68d23a" Name="Diagram1">
+        <EntityTypeShape EntityType="EpmModel.tbAgua" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpmModel.tbCliente" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpmModel.tbEnergia" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpmModel.tbFactura" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="EpmModel.tbPrecio" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <AssociationConnector Association="EpmModel.FK_tbAgua_tbCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="EpmModel.FK_tbFactura_tbAgua" ManuallyRouted="false" />
+        <AssociationConnector Association="EpmModel.FK_tbEnergia_tbCliente" ManuallyRouted="false" />
+        <AssociationConnector Association="EpmModel.FK_tbFactura_tbEnergia" ManuallyRouted="false" />
+        <AssociationConnector Association="EpmModel.FK_tbFactura_tbPrecios" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

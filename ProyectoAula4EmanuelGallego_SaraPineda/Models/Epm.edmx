@@ -1,0 +1,387 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="EpmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tbAgua">
+          <Key>
+            <PropertyRef Name="IdAgua" />
+          </Key>
+          <Property Name="IdAgua" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="PromedioConsumo" Type="float" Nullable="false" />
+          <Property Name="ConsumoActual" Type="float" Nullable="false" />
+          <Property Name="PeriodoConsumo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbCliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cedula" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Apellidos" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Celular" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Estrato" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbEnergia">
+          <Key>
+            <PropertyRef Name="IdEnergia" />
+          </Key>
+          <Property Name="IdEnergia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="MetaAhorro" Type="float" Nullable="false" />
+          <Property Name="ConsumoActual" Type="float" Nullable="false" />
+          <Property Name="PeriodoConsumo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbFactura">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+          </Key>
+          <Property Name="IdFactura" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdAgua" Type="int" Nullable="false" />
+          <Property Name="IdEnergia" Type="int" Nullable="false" />
+          <Property Name="IdPrecios" Type="int" Nullable="false" />
+          <Property Name="PagoAgua" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PagoEnergia" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PagoTotal" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tbPrecios">
+          <Key>
+            <PropertyRef Name="IdPrecios" />
+          </Key>
+          <Property Name="IdPrecios" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Servicio" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Precio" Type="decimal" Precision="19" Scale="4" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tbAgua_tbCliente">
+          <End Role="tbCliente" Type="Self.tbCliente" Multiplicity="1" />
+          <End Role="tbAgua" Type="Self.tbAgua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="tbAgua">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbEnergia_tbCliente">
+          <End Role="tbCliente" Type="Self.tbCliente" Multiplicity="1" />
+          <End Role="tbEnergia" Type="Self.tbEnergia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="tbEnergia">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFactura_tbAgua">
+          <End Role="tbAgua" Type="Self.tbAgua" Multiplicity="1" />
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAgua">
+              <PropertyRef Name="IdAgua" />
+            </Principal>
+            <Dependent Role="tbFactura">
+              <PropertyRef Name="IdAgua" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFactura_tbEnergia">
+          <End Role="tbEnergia" Type="Self.tbEnergia" Multiplicity="1" />
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbEnergia">
+              <PropertyRef Name="IdEnergia" />
+            </Principal>
+            <Dependent Role="tbFactura">
+              <PropertyRef Name="IdEnergia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFactura_tbPrecios">
+          <End Role="tbPrecios" Type="Self.tbPrecios" Multiplicity="1" />
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPrecios">
+              <PropertyRef Name="IdPrecios" />
+            </Principal>
+            <Dependent Role="tbFactura">
+              <PropertyRef Name="IdPrecios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EpmModelStoreContainer">
+          <EntitySet Name="tbAgua" EntityType="Self.tbAgua" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbCliente" EntityType="Self.tbCliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbEnergia" EntityType="Self.tbEnergia" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbFactura" EntityType="Self.tbFactura" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbPrecios" EntityType="Self.tbPrecios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tbAgua_tbCliente" Association="Self.FK_tbAgua_tbCliente">
+            <End Role="tbCliente" EntitySet="tbCliente" />
+            <End Role="tbAgua" EntitySet="tbAgua" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbEnergia_tbCliente" Association="Self.FK_tbEnergia_tbCliente">
+            <End Role="tbCliente" EntitySet="tbCliente" />
+            <End Role="tbEnergia" EntitySet="tbEnergia" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFactura_tbAgua" Association="Self.FK_tbFactura_tbAgua">
+            <End Role="tbAgua" EntitySet="tbAgua" />
+            <End Role="tbFactura" EntitySet="tbFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFactura_tbEnergia" Association="Self.FK_tbFactura_tbEnergia">
+            <End Role="tbEnergia" EntitySet="tbEnergia" />
+            <End Role="tbFactura" EntitySet="tbFactura" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFactura_tbPrecios" Association="Self.FK_tbFactura_tbPrecios">
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+            <End Role="tbFactura" EntitySet="tbFactura" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EpmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tbAgua">
+          <Key>
+            <PropertyRef Name="IdAgua" />
+          </Key>
+          <Property Name="IdAgua" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="PromedioConsumo" Type="Double" Nullable="false" />
+          <Property Name="ConsumoActual" Type="Double" Nullable="false" />
+          <Property Name="PeriodoConsumo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbCliente" Relationship="Self.FK_tbAgua_tbCliente" FromRole="tbAgua" ToRole="tbCliente" />
+          <NavigationProperty Name="tbFacturas" Relationship="Self.FK_tbFactura_tbAgua" FromRole="tbAgua" ToRole="tbFactura" />
+        </EntityType>
+        <EntityType Name="tbCliente">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cedula" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Apellidos" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Celular" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Estrato" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbAguas" Relationship="Self.FK_tbAgua_tbCliente" FromRole="tbCliente" ToRole="tbAgua" />
+          <NavigationProperty Name="tbEnergias" Relationship="Self.FK_tbEnergia_tbCliente" FromRole="tbCliente" ToRole="tbEnergia" />
+        </EntityType>
+        <EntityType Name="tbEnergia">
+          <Key>
+            <PropertyRef Name="IdEnergia" />
+          </Key>
+          <Property Name="IdEnergia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="MetaAhorro" Type="Double" Nullable="false" />
+          <Property Name="ConsumoActual" Type="Double" Nullable="false" />
+          <Property Name="PeriodoConsumo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tbCliente" Relationship="Self.FK_tbEnergia_tbCliente" FromRole="tbEnergia" ToRole="tbCliente" />
+          <NavigationProperty Name="tbFacturas" Relationship="Self.FK_tbFactura_tbEnergia" FromRole="tbEnergia" ToRole="tbFactura" />
+        </EntityType>
+        <EntityType Name="tbFactura">
+          <Key>
+            <PropertyRef Name="IdFactura" />
+          </Key>
+          <Property Name="IdFactura" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdAgua" Type="Int32" Nullable="false" />
+          <Property Name="IdEnergia" Type="Int32" Nullable="false" />
+          <Property Name="IdPrecios" Type="Int32" Nullable="false" />
+          <Property Name="PagoAgua" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PagoEnergia" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="PagoTotal" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="tbAgua" Relationship="Self.FK_tbFactura_tbAgua" FromRole="tbFactura" ToRole="tbAgua" />
+          <NavigationProperty Name="tbEnergia" Relationship="Self.FK_tbFactura_tbEnergia" FromRole="tbFactura" ToRole="tbEnergia" />
+          <NavigationProperty Name="tbPrecio" Relationship="Self.FK_tbFactura_tbPrecios" FromRole="tbFactura" ToRole="tbPrecios" />
+        </EntityType>
+        <EntityType Name="tbPrecio">
+          <Key>
+            <PropertyRef Name="IdPrecios" />
+          </Key>
+          <Property Name="IdPrecios" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Servicio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <NavigationProperty Name="tbFacturas" Relationship="Self.FK_tbFactura_tbPrecios" FromRole="tbPrecios" ToRole="tbFactura" />
+        </EntityType>
+        <Association Name="FK_tbAgua_tbCliente">
+          <End Role="tbCliente" Type="Self.tbCliente" Multiplicity="1" />
+          <End Role="tbAgua" Type="Self.tbAgua" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="tbAgua">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFactura_tbAgua">
+          <End Role="tbAgua" Type="Self.tbAgua" Multiplicity="1" />
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbAgua">
+              <PropertyRef Name="IdAgua" />
+            </Principal>
+            <Dependent Role="tbFactura">
+              <PropertyRef Name="IdAgua" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbEnergia_tbCliente">
+          <End Role="tbCliente" Type="Self.tbCliente" Multiplicity="1" />
+          <End Role="tbEnergia" Type="Self.tbEnergia" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbCliente">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="tbEnergia">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFactura_tbEnergia">
+          <End Role="tbEnergia" Type="Self.tbEnergia" Multiplicity="1" />
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbEnergia">
+              <PropertyRef Name="IdEnergia" />
+            </Principal>
+            <Dependent Role="tbFactura">
+              <PropertyRef Name="IdEnergia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbFactura_tbPrecios">
+          <End Role="tbPrecios" Type="Self.tbPrecio" Multiplicity="1" />
+          <End Role="tbFactura" Type="Self.tbFactura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbPrecios">
+              <PropertyRef Name="IdPrecios" />
+            </Principal>
+            <Dependent Role="tbFactura">
+              <PropertyRef Name="IdPrecios" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EpmEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tbAguas" EntityType="Self.tbAgua" />
+          <EntitySet Name="tbClientes" EntityType="Self.tbCliente" />
+          <EntitySet Name="tbEnergias" EntityType="Self.tbEnergia" />
+          <EntitySet Name="tbFacturas" EntityType="Self.tbFactura" />
+          <EntitySet Name="tbPrecios" EntityType="Self.tbPrecio" />
+          <AssociationSet Name="FK_tbAgua_tbCliente" Association="Self.FK_tbAgua_tbCliente">
+            <End Role="tbCliente" EntitySet="tbClientes" />
+            <End Role="tbAgua" EntitySet="tbAguas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFactura_tbAgua" Association="Self.FK_tbFactura_tbAgua">
+            <End Role="tbAgua" EntitySet="tbAguas" />
+            <End Role="tbFactura" EntitySet="tbFacturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbEnergia_tbCliente" Association="Self.FK_tbEnergia_tbCliente">
+            <End Role="tbCliente" EntitySet="tbClientes" />
+            <End Role="tbEnergia" EntitySet="tbEnergias" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFactura_tbEnergia" Association="Self.FK_tbFactura_tbEnergia">
+            <End Role="tbEnergia" EntitySet="tbEnergias" />
+            <End Role="tbFactura" EntitySet="tbFacturas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbFactura_tbPrecios" Association="Self.FK_tbFactura_tbPrecios">
+            <End Role="tbPrecios" EntitySet="tbPrecios" />
+            <End Role="tbFactura" EntitySet="tbFacturas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EpmModelStoreContainer" CdmEntityContainer="EpmEntities">
+          <EntitySetMapping Name="tbAguas">
+            <EntityTypeMapping TypeName="EpmModel.tbAgua">
+              <MappingFragment StoreEntitySet="tbAgua">
+                <ScalarProperty Name="IdAgua" ColumnName="IdAgua" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="PromedioConsumo" ColumnName="PromedioConsumo" />
+                <ScalarProperty Name="ConsumoActual" ColumnName="ConsumoActual" />
+                <ScalarProperty Name="PeriodoConsumo" ColumnName="PeriodoConsumo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbClientes">
+            <EntityTypeMapping TypeName="EpmModel.tbCliente">
+              <MappingFragment StoreEntitySet="tbCliente">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Cedula" ColumnName="Cedula" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="Celular" ColumnName="Celular" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Estrato" ColumnName="Estrato" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbEnergias">
+            <EntityTypeMapping TypeName="EpmModel.tbEnergia">
+              <MappingFragment StoreEntitySet="tbEnergia">
+                <ScalarProperty Name="IdEnergia" ColumnName="IdEnergia" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="MetaAhorro" ColumnName="MetaAhorro" />
+                <ScalarProperty Name="ConsumoActual" ColumnName="ConsumoActual" />
+                <ScalarProperty Name="PeriodoConsumo" ColumnName="PeriodoConsumo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbFacturas">
+            <EntityTypeMapping TypeName="EpmModel.tbFactura">
+              <MappingFragment StoreEntitySet="tbFactura">
+                <ScalarProperty Name="IdFactura" ColumnName="IdFactura" />
+                <ScalarProperty Name="IdAgua" ColumnName="IdAgua" />
+                <ScalarProperty Name="IdEnergia" ColumnName="IdEnergia" />
+                <ScalarProperty Name="IdPrecios" ColumnName="IdPrecios" />
+                <ScalarProperty Name="PagoAgua" ColumnName="PagoAgua" />
+                <ScalarProperty Name="PagoEnergia" ColumnName="PagoEnergia" />
+                <ScalarProperty Name="PagoTotal" ColumnName="PagoTotal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbPrecios">
+            <EntityTypeMapping TypeName="EpmModel.tbPrecio">
+              <MappingFragment StoreEntitySet="tbPrecios">
+                <ScalarProperty Name="IdPrecios" ColumnName="IdPrecios" />
+                <ScalarProperty Name="Servicio" ColumnName="Servicio" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
