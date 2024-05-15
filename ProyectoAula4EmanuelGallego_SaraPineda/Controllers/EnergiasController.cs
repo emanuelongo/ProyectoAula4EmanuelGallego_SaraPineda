@@ -37,9 +37,9 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         }
 
         // GET: Energias/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.IdCliente = new SelectList(db.tbClientes, "IdCliente", "Cedula");
+            ViewBag.IdCliente = id;
             return View();
         }
 
@@ -54,7 +54,7 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
             {
                 db.tbEnergias.Add(tbEnergia);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Clientes", new {id = tbEnergia.IdEnergia});
             }
 
             ViewBag.IdCliente = new SelectList(db.tbClientes, "IdCliente", "Cedula", tbEnergia.IdCliente);
@@ -88,7 +88,7 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
             {
                 db.Entry(tbEnergia).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Clientes", new { id = tbEnergia.IdCliente });
             }
             ViewBag.IdCliente = new SelectList(db.tbClientes, "IdCliente", "Cedula", tbEnergia.IdCliente);
             return View(tbEnergia);

@@ -4,12 +4,20 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
-    <h4>tbCliente</h4>
+    <h4>Cliente</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCliente)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCliente)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Cedula)
         </dt>
@@ -58,9 +66,71 @@
             @Html.DisplayFor(model => model.Estrato)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.tbAguas)
+        </dt>
+
+        <dd>
+            @foreach (var promedioConsumo in Model.tbAguas)
+            {
+                <div>@promedioConsumo.PromedioConsumo</div>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbAguas)
+        </dt>
+
+        <dd>
+            @foreach (var consumoActual in Model.tbAguas)
+            {
+                <div>@consumoActual.ConsumoActual</div>
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.tbAguas)
+        </dt>
+
+        <dd>
+            @foreach (var periodoConsumo in Model.tbAguas)
+            {
+                <div>@periodoConsumo.PeriodoConsumo</div>
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.tbEnergias)
+        </dt>
+        <dd>
+            @foreach (var metaAhorro in Model.tbEnergias)
+            {
+                <div>@metaAhorro.MetaAhorro</div>
+            }
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.tbEnergias)
+        </dt>
+
+        <dd>
+            @foreach (var consumoActual in Model.tbEnergias)
+            {
+                <div>@consumoActual.ConsumoActual</div>
+            }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.tbEnergias)
+        </dt>
+
+        <dd>
+            @foreach (var periodoConsumo in Model.tbEnergias)
+            {
+                <div>@periodoConsumo.PeriodoConsumo</div>
+            }
+        </dd>
+
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdCliente }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.IdCliente }) |
+    @Html.ActionLink("Volver a la lista", "Index")
 </p>

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -37,9 +38,9 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         }
 
         // GET: Aguas/Create
-        public ActionResult Create()
+        public ActionResult Create(int? id)
         {
-            ViewBag.IdCliente = new SelectList(db.tbClientes, "IdCliente", "Cedula");
+            ViewBag.IdCliente = id;
             return View();
         }
 
@@ -48,16 +49,23 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAgua,IdCliente,PromedioConsumo,ConsumoActual,PeriodoConsumo")] tbAgua tbAgua)
+        public ActionResult Create([Bind(Include = "IdAgua, IdCliente, PromedioConsumo, ConsumoActual, PeriodoConsumo")] tbAgua tbAgua)
         {
             if (ModelState.IsValid)
             {
                 db.tbAguas.Add(tbAgua);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Energias", new { id = tbAgua.IdCliente });
+            }
+            if (tbAgua != null)
+            {
+                ViewBag.IdCliente = tbAgua.IdCliente;
+            }
+            else
+            {
+                ViewBag.IdCliente = null;
             }
 
-            ViewBag.IdCliente = new SelectList(db.tbClientes, "IdCliente", "Cedula", tbAgua.IdCliente);
             return View(tbAgua);
         }
 
@@ -87,9 +95,11 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(tbAgua).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.SaveChanges();//ACÁ ME APARECE UN ERROR
+                return RedirectToAction("Edit", "Energias", new { id = tbAgua.IdCliente });
             }
+            
+            
             ViewBag.IdCliente = new SelectList(db.tbClientes, "IdCliente", "Cedula", tbAgua.IdCliente);
             return View(tbAgua);
         }

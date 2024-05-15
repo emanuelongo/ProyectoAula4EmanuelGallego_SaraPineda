@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -50,9 +51,34 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.tbClientes.Add(tbCliente);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    if (db.tbClientes.Any(cliente => cliente.Cedula == tbCliente.Cedula))
+                    {
+                        // La cédula ya existe en la base de datos.
+                        ModelState.AddModelError("Cedula", "Ya existe un cliente con esta cédula.");
+                    }
+                    else
+                    {
+                        // La cédula no existe en la base de datos.
+                        // Puedes proceder a agregar el nuevo cliente.
+                        db.tbClientes.Add(tbCliente);
+                        db.SaveChanges();
+                        return RedirectToAction("Create", "Aguas", new { id = tbCliente.IdCliente });
+                    }
+
+
+                }
+                catch (System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            System.Diagnostics.Trace.TraceInformation("Property: {0} Error: {1}", validationError.PropertyName, validationError.ErrorMessage);
+                        }
+                    }
+                }
             }
 
             return View(tbCliente);
@@ -80,12 +106,28 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdCliente,Cedula,Nombre,Apellidos,Celular,Correo,Estrato")] tbCliente tbCliente)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(tbCliente).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    db.Entry(tbCliente).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Edit", "Aguas", new { id = tbCliente.IdCliente });
+                }
             }
+            catch (DbUpdateException ex)
+            {
+                // Inspecciona la excepción interna
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"Excepción interna: {ex.InnerException.Message}");
+                }
+                else
+                {
+                    Console.WriteLine("No se encontró una excepción interna.");
+                }
+            }
+            
             return View(tbCliente);
         }
 
@@ -110,6 +152,17 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             tbCliente tbCliente = db.tbClientes.Find(id);
+
+            foreach (var agua in tbCliente.tbAguas.ToList())
+            {
+                db.tbAguas.Remove(agua);
+            }
+
+            foreach (var energia in tbCliente.tbEnergias.ToList())
+            {
+                db.tbEnergias.Remove(energia);
+            }
+
             db.tbClientes.Remove(tbCliente);
             db.SaveChanges();
             return RedirectToAction("Index");

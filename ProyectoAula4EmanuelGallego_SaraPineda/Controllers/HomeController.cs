@@ -8,7 +8,7 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Epm()
         {
             return View();
         }
