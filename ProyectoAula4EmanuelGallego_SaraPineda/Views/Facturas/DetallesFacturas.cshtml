@@ -1,0 +1,43 @@
+﻿﻿@model IEnumerable<ProyectoAula4EmanuelGallego_SaraPineda.Models.tbFactura>
+
+@{
+    ViewBag.Title = "Detalles de Facturas";
+}
+
+@Html.AntiForgeryToken()
+<h2>Detalles de Facturas</h2>
+
+<table class="table">
+    <tr>
+        <th>IdFactura</th>
+        <th>IdAgua</th>
+        <th>IdEnergia</th>
+        <th>IdPrecios</th>
+        <th>PagoAgua</th>
+        <th>PagoEnergia</th>
+        <th>PagoTotal</th>
+    </tr>
+
+    @if (Model != null && Model.Any())
+    {
+        foreach (var factura in Model)
+        {
+            <tr>
+                <td>@factura.IdFactura</td>
+                <td>@factura.IdAgua</td>
+                <td>@factura.IdEnergia</td>
+                <td>@factura.IdPrecios</td>
+                <td>@factura.PagoAgua</td>
+                <td>@factura.PagoEnergia</td>
+                <td>@factura.PagoTotal</td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="7">No se encontraron facturas.</td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Operaciones";
+}
+
+<h2>Operaciones</h2>
+
+<div class="botones">
+
+    @using (Html.BeginForm("PromedioConsumo", "EstadisticasEnergia", FormMethod.Post))
+    {
+        <input type="submit" value="Promedio de consumo" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.PromedioConsumo != null)
+    {
+        <h4>Promedio de consumo de energía:</h4>
+        <p>
+            @ViewBag.PromedioConsumo
+        </p>
+    }
+    @using (Html.BeginForm("ClienteMayorDesfase", "EstadisticasEnergia", FormMethod.Post))
+    {
+        <input type="submit" value="Cliente con mayor desfase" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.ClienteMayorDesfase != null)
+    {
+        <h4>Cliente con mayor desfase de consumo:</h4>
+        <p>
+            @ViewBag.ClienteMayorDesfase
+        </p>
+    }
+    @using (Html.BeginForm("EstratoMayorConsumo", "EstadisticasEnergia", FormMethod.Post))
+    {
+        <input type="submit" value="Estrato con mayor consumo" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.EstratoMayorConsumo != null)
+    {
+        <h4>Estrato con mayor consumo de energí:</h4>
+        <p>
+            @ViewBag.EstratoMayorConsumo
+        </p>
+    }
+    @using (Html.BeginForm("EstratoMenorConsumo", "EstadisticasEnergia", FormMethod.Post))
+    {
+        <input type="submit" value="Estrato con menor consumo" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.EstratoMenorConsumo != null)
+    {
+        <h4>Estrato con menor consumo de energía:</h4>
+        <p>
+            @ViewBag.EstratoMenorConsumo
+        </p>
+    }
+    @using (Html.BeginForm("TotalPagoEpm", "EstadisticasEnergia", FormMethod.Post))
+    {
+        <input type="submit" value="Pago total a Epm" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.TotalPagoEpm != null)
+    {
+        <h4>Pago total a Epm:</h4>
+        <p>
+            @ViewBag.TotalPagoEpm
+        </p>
+    }
+</div>

@@ -112,7 +112,7 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
                 {
                     db.Entry(tbCliente).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Edit", "Aguas", new { id = tbCliente.IdCliente });
+                    return RedirectToAction("Index");
                 }
             }
             catch (DbUpdateException ex)
@@ -152,6 +152,16 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             tbCliente tbCliente = db.tbClientes.Find(id);
+            var factura = db.tbFacturas.Find(id);
+
+            
+
+            if (factura != null)
+            {
+                // Eliminar el registro
+                db.tbFacturas.Remove(factura);
+                db.SaveChanges();
+            }
 
             foreach (var agua in tbCliente.tbAguas.ToList())
             {

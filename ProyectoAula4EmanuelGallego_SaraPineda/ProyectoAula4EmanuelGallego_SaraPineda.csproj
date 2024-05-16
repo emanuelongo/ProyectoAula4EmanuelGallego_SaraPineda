@@ -260,16 +260,16 @@
     <Content Include="Views\Precios\Details.cshtml" />
     <Content Include="Views\Precios\Edit.cshtml" />
     <Content Include="Views\Precios\Index.cshtml" />
-    <Content Include="Views\Facturas\Create.cshtml" />
-    <Content Include="Views\Facturas\Delete.cshtml" />
+    <Content Include="Views\Facturas\BuscarFacturas.cshtml" />
+    <Content Include="Views\Facturas\DetallesFacturas.cshtml" />
     <Content Include="Views\Facturas\Details.cshtml" />
     <Content Include="Views\Facturas\Edit.cshtml" />
     <Content Include="Views\Facturas\Index.cshtml" />
+    <Content Include="Views\EstadisticasAgua\Operaciones.cshtml" />
+    <Content Include="Views\EstadisticasEnergia\Operaciones.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\EstadisticasAgua\" />
-    <Folder Include="Views\EstadisticasEnergia\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

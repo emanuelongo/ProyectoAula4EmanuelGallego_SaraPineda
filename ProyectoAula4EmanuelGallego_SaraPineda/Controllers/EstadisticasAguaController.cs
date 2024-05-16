@@ -21,6 +21,8 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         // Metodo para calcular la cantidad de m3 de agua consumidos por encima del promedio
         public ActionResult CantidadAguaMayorAlPromedio()
         {
+            var promedioConsumoActual = db.tbEnergias.Average(e => e.ConsumoActual);
+            ViewBag.PromedioConsumo = promedioConsumoActual;
             return View("operaciones");
         }
 

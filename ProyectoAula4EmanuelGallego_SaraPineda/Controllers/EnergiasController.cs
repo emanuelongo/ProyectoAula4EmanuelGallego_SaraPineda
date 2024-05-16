@@ -87,7 +87,7 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
                     ModelState.AddModelError("", "No se encontraron los precios de agua o energía.");
                 }
 
-                return RedirectToAction("Index", "tbClientes");
+                return RedirectToAction("Index", "Clientes");
             }
 
             ViewBag.IdCliente = new SelectList(db.tbClientes, "IdCliente", "Cedula", tbEnergia.IdCliente);

@@ -96,7 +96,7 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
             {
                 db.Entry(tbAgua).State = EntityState.Modified;
                 db.SaveChanges();//ACÁ ME APARECE UN ERROR
-                return RedirectToAction("Edit", "Energias", new { id = tbAgua.IdCliente });
+                return RedirectToAction("Index", "Clientes", new { id = tbAgua.IdCliente });
             }
             
             

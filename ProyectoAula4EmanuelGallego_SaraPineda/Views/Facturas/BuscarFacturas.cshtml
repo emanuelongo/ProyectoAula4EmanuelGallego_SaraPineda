@@ -1,0 +1,21 @@
+﻿﻿@model ProyectoAula4EmanuelGallego_SaraPineda.Models.tbCliente
+
+@{
+    ViewBag.Title = "Buscar Facturas";
+}
+
+<h2>Buscar Facturas</h2>
+
+@using (Html.BeginForm("BuscarFacturas", "Facturas", FormMethod.Post))
+
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(model => model.Cedula, new { @class = "control-label" })
+        @Html.TextBoxFor(model => model.Cedula, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Cedula, "", new { @class = "text-danger" })
+
+    </div>
+
+    <input type="submit" value="Buscar" class="btn btn-primary" />
+}
