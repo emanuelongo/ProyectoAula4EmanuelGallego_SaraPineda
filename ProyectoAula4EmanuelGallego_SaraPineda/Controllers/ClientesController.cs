@@ -154,6 +154,7 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
             tbCliente tbCliente = db.tbClientes.Find(id);
             var factura = db.tbFacturas.Find(id);
 
+
             
 
             if (factura != null)

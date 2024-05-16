@@ -55,7 +55,23 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         // Metodo para calcular cliente con mayor consumo de agua por periodo de consumo de agua
         public ActionResult ClienteMayorConsumoPorPeriodo()
         {
-            return View("operaciones");
+            var clientesMayorConsumoPorPeriodo = db.tbAguas
+                .Join(db.tbClientes,
+                    agua => agua.IdCliente,
+                    cliente => cliente.IdCliente,
+                    (agua, cliente) => new { Agua = agua, Cliente = cliente })
+                .GroupBy(ac => new { ac.Agua.PeriodoConsumo, ac.Cliente.Estrato })
+                .Select(g => new
+                {
+                    PeriodoConsumo = g.Key.PeriodoConsumo,
+                    Estrato = g.Key.Estrato,
+                    ClienteMayorConsumo = g.OrderByDescending(ac => ac.Agua.ConsumoActual).FirstOrDefault().Cliente
+                })
+                .ToList();
+
+            ViewBag.ClientesMayorConsumoPorPeriodo = clientesMayorConsumoPorPeriodo;
+
+            return View("Operaciones");
         }
 
         // Metodo para calcular el total a pagar a ep de tods los clientes

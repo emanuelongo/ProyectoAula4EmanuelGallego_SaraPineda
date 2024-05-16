@@ -46,12 +46,16 @@
         <input type="submit" value="Cliente con mayor consumo" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
     }
 
-    @if (ViewBag.ClienteConsumo != null)
+    @if (ViewBag.ClientesMayorConsumoPorPeriodo != null)
     {
         <h4>Cantidad agua mayor al promedio:</h4>
-        <p>
-            @ViewBag.ClienteConsumo
-        </p>
+        foreach (var item in ViewBag.ClientesMayorConsumoPorPeriodo)
+        {
+            <p>Periodo de Consumo: @item.PeriodoConsumo</p>
+            <p>Nombre del Cliente con Mayor Consumo: @item.ClienteMayorConsumo.Nombre</p>
+            <hr  />
+        }
+    }
     }
     @using (Html.BeginForm("TotalPagoEpm", "EstadisticasAgua", FormMethod.Post))
     {
