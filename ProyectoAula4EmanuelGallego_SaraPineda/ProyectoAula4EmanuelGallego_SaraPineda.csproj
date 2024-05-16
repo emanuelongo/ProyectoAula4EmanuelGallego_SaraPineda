@@ -132,6 +132,8 @@
     <Compile Include="Controllers\AguasController.cs" />
     <Compile Include="Controllers\ClientesController.cs" />
     <Compile Include="Controllers\EnergiasController.cs" />
+    <Compile Include="Controllers\EstadisticasAguaController.cs" />
+    <Compile Include="Controllers\EstadisticasEnergiaController.cs" />
     <Compile Include="Controllers\FacturasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PreciosController.cs" />
@@ -266,6 +268,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\EstadisticasAgua\" />
+    <Folder Include="Views\EstadisticasEnergia\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

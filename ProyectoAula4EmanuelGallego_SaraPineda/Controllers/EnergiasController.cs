@@ -54,7 +54,40 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
             {
                 db.tbEnergias.Add(tbEnergia);
                 db.SaveChanges();
-                return RedirectToAction("Index", "Clientes", new {id = tbEnergia.IdEnergia});
+
+                // Obtener los datos de agua y energía del cliente
+                var agua = db.tbAguas.FirstOrDefault(a => a.IdCliente == tbEnergia.IdCliente);
+                var energia = db.tbEnergias.FirstOrDefault(e => e.IdCliente == tbEnergia.IdCliente);
+
+                // Obtener los precios de agua y energía
+                var precioAgua = db.tbPrecios.FirstOrDefault(p => p.Servicio == "agua");
+                var precioEnergia = db.tbPrecios.FirstOrDefault(p => p.Servicio == "energia");
+
+                // Verificar que los precios existen
+                if (precioAgua != null && precioEnergia != null)
+                {
+                    // Crear la factura
+                    var factura = new tbFactura
+                    {
+                        IdAgua = agua.IdAgua,
+                        IdEnergia = energia.IdEnergia,
+                        IdPrecios = precioAgua.IdPrecios, // Asegúrate de que este es el IdPrecios correcto
+                        PagoAgua = (decimal)((agua.PromedioConsumo * (double)precioAgua.Precio) + ((agua.ConsumoActual - agua.PromedioConsumo) * 2 * (double)precioAgua.Precio)), // Convertir el precio a double antes de la multiplicación
+                        PagoEnergia = (decimal)((energia.ConsumoActual * (double)precioEnergia.Precio) - ((energia.MetaAhorro - energia.ConsumoActual) * (double)precioEnergia.Precio)), // Convertir el precio a double antes de la multiplicación
+                        PagoTotal = (decimal)(((energia.ConsumoActual * (double)precioEnergia.Precio) - ((energia.MetaAhorro - energia.ConsumoActual) * (double)precioEnergia.Precio)) + ((agua.PromedioConsumo * (double)precioAgua.Precio) + ((agua.ConsumoActual - agua.PromedioConsumo) * (2 * (double)precioAgua.Precio))))
+                    };
+
+
+                    db.tbFacturas.Add(factura);
+                    db.SaveChanges();
+                }
+                else
+                {
+                    // Si los precios no existen, agregar un mensaje de error al ModelState
+                    ModelState.AddModelError("", "No se encontraron los precios de agua o energía.");
+                }
+
+                return RedirectToAction("Index", "tbClientes");
             }
 
             ViewBag.IdCliente = new SelectList(db.tbClientes, "IdCliente", "Cedula", tbEnergia.IdCliente);

@@ -18,6 +18,9 @@
             <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Cliente", "Index", "Clientes", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Factura", "BuscarFacturas", "Facturas", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Agua", "Operaciones", "Aguas", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Energia", "Operaciones", "Energias", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
             </div>
         </div>
