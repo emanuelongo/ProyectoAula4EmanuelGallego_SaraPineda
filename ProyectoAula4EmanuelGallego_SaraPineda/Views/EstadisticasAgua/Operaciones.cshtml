@@ -3,3 +3,67 @@
 }
 
 <h2>Operaciones</h2>
+<div class="botones">
+
+    @using (Html.BeginForm("CantidadAguaMayorAlPromedio", "EstadisticasAgua", FormMethod.Post))
+    {
+        <input type="submit" value="Cantidad de agua mayor" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.CantidadMayor != null)
+    {
+        <h4>Cantidad agua mayor al promedio:</h4>
+        <p>
+            @ViewBag.CantidadMayor
+        </p>
+    }
+    @using (Html.BeginForm("PorcentajeConsumoExcesivoPorEstrato", "EstadisticasAgua", FormMethod.Post))
+    {
+        <input type="submit" value="Porcentaje consumo excesivo" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.Porcentaje != null)
+    {
+        <h4>Consumo excesivo por estrato:</h4>
+        <p>
+            @ViewBag.Porcentaje
+        </p>
+    }
+    @using (Html.BeginForm("EstratoConMayorAhorro", "EstadisticasAgua", FormMethod.Post))
+    {
+        <input type="submit" value="Estrato con mayor ahorro" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.EstratoMayorAhorro != null)
+    {
+        <h4>Estrato con mayor ahorro:</h4>
+        <p>
+            @ViewBag.EstratoMayorAhorro
+        </p>
+    }
+    @using (Html.BeginForm("ClienteMayorConsumoPorPeriodo", "EstadisticasAgua", FormMethod.Post))
+    {
+        <input type="submit" value="Cliente con mayor consumo" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.ClienteConsumo != null)
+    {
+        <h4>Cantidad agua mayor al promedio:</h4>
+        <p>
+            @ViewBag.ClienteConsumo
+        </p>
+    }
+    @using (Html.BeginForm("TotalPagoEpm", "EstadisticasAgua", FormMethod.Post))
+    {
+        <input type="submit" value="Pago total Epm" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.TotalPago != null)
+    {
+        <h4>Total pagado a Epm:</h4>
+        <p>
+            @ViewBag.TotalPago
+        </p>
+    }
+
+</div>

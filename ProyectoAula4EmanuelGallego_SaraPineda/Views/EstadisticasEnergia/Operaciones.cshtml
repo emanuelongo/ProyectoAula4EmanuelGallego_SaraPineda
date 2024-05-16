@@ -18,6 +18,18 @@
             @ViewBag.PromedioConsumo
         </p>
     }
+    @using (Html.BeginForm("ValorTotalPorDescuentos", "EstadisticasEnergia", FormMethod.Post))
+    {
+        <input type="submit" value="Valor total descuentos" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
+    }
+
+    @if (ViewBag.ValorTotalDescuentos != null)
+    {
+        <h4>Valor total por descuentos:</h4>
+        <p>
+            @ViewBag.ValorTotalDescuentos
+        </p>
+    }
     @using (Html.BeginForm("ClienteMayorDesfase", "EstadisticasEnergia", FormMethod.Post))
     {
         <input type="submit" value="Cliente con mayor desfase" class="btn btn-primary btn_group" style="margin-bottom: 10px; width: 100% " />
@@ -27,8 +39,24 @@
     {
         <h4>Cliente con mayor desfase de consumo:</h4>
         <p>
-            @ViewBag.ClienteMayorDesfase
+            @ViewBag.ClienteMayorDesfase.Nombre
         </p>
+        <p>
+            @ViewBag.ClienteMayorDesfase.Apellidos
+        </p>
+        <p>
+            @ViewBag.ClienteMayorDesfase.Cedula
+        </p>
+        <p>
+            @ViewBag.ClienteMayorDesfase.Celular
+        </p>
+        <p>
+            @ViewBag.ClienteMayorDesfase.Correo
+        </p>
+        <p>
+            @ViewBag.ClienteMayorDesfase.Estrato
+        </p>
+
     }
     @using (Html.BeginForm("EstratoMayorConsumo", "EstadisticasEnergia", FormMethod.Post))
     {

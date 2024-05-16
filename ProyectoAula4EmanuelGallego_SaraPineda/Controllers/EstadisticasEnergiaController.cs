@@ -27,21 +27,25 @@ namespace ProyectoAula4EmanuelGallego_SaraPineda.Controllers
         }
 
         // Metodo para calcular el valkor total por concepto de descuentos
-        public ActionResult ValorTotalPorDescuento()
+        public ActionResult ValorTotalPorDescuentos()
         {
             decimal precioPorKilovatio = db.tbPrecios.Where(p => p.Servicio == "energia").Select(p => p.Precio).FirstOrDefault();
 
+            // Obtén todos los registros de tbEnergia
             var registrosEnergia = db.tbEnergias.ToList();
 
+            decimal totalDescuentos = 0;
+
+            // Calcula el valor total por concepto de descuentos para cada registro
             foreach (var registro in registrosEnergia)
             {
-                decimal valorParcial = Convert.ToDecimal(registro.ConsumoActual) * precioPorKilovatio;
                 decimal valorIncentivo = Convert.ToDecimal(registro.MetaAhorro - registro.ConsumoActual) * precioPorKilovatio;
-                decimal valorPorPagarPorEnergia = valorParcial - valorIncentivo;
-
-                // Aquí puedes hacer algo con valorPorPagarPorEnergia, como guardarlo en la base de datos o enviarlo a la vista
+                totalDescuentos += valorIncentivo;
             }
-            return View("operaciones");
+
+            ViewBag.ValorTotalDescuentos = totalDescuentos;
+
+            return View("Operaciones");
         }
 
         // Metodo para calcular el cliente que tuvo mayor desface o diferencia del consumo de energía con respecto a la meta de ahorro.
